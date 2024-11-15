@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warning</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8d7da;
+            color: #721c24;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Warning!</h1>
+        <p>This site contains adult content.</p>
+        <p id="customMessage"></p>
+        <button onclick="goBack()">Go Back</button>
+    </div>
+    
+    <script>
+        // Fetch and display the custom message
+        const customMessage = localStorage.getItem('customMessage') || "Please refrain from accessing adult content!";
+        document.getElementById('customMessage').textContent = customMessage;
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
+ // Add this to a separate HTML page or include it in the existing page's script block
+function setCustomMessage() {
+    const message = prompt("Enter your custom warning message:");
+    if (message) {
+        localStorage.setItem('customMessage', message);
+        alert("Custom message saved!");
+    }
+}const express = require('express');
+const path = require('path');
+
+const app = express();
+const PORT = 3000;
+
+app.use(express.static('public'));
+
+app.get('/warning', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'warning.html'));
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running at http://localhost:${PORT}`);
+});
